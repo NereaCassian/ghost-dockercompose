@@ -16,7 +16,7 @@ services:
       database__connection__password: example
       database__connection__database: ghost
       
-      url: https://blog.nereacassian.com
+      url: https://example.example
     volumes:
       - ./blog:/var/lib/ghost/content
       - ./config.production.json:/var/lib/ghost/config.production.json
