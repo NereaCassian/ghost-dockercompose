@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+
+  ghost:
+    image: ghost:latest
+    container_name: ghost
+    restart: always
+    ports:
+      - 2368:2368
+    environment:
+      database__client: mysql
+      database__connection__host: ghost-mysql
+      database__connection__port: 3306
+      database__connection__user: root
+      database__connection__password: example
+      database__connection__database: ghost
+      
+      url: https://blog.nereacassian.com
+    volumes:
+      - ./blog:/var/lib/ghost/content
+      - ./config.production.json:/var/lib/ghost/config.production.json
+
+  mysql:
+    image: mysql:latest
+    container_name: ghost-mysql
+    ports:
+      - 3305:3306
+    volumes:
+      - ./dbdata:/var/lib/mysql:z  # Persist storage  
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghostusr
+      MYSQL_PASSWORD: example
+    restart: always
